@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Time Checker - Check Time & Weather Worldwide</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel: Current Location & Time -->
+        <div class="left-panel">
+            <div class="current-location-card">
+                <div class="location-header">
+                    <h2 id="currentCity">Loading...</h2>
+                    <p id="currentCountry" class="country-text">--</p>
+                </div>
+                
+                <div class="time-display">
+                    <div class="time-large" id="currentTime">--:--:--</div>
+                    <div class="time-meta">
+                        <span id="currentTimezone">UTC</span>
+                    </div>
+                    <div class="time-date" id="currentDate">Mon, Jan 1, 2024</div>
+                </div>
+                
+                <div class="weather-info">
+                    <div class="weather-icon-container">
+                        <i id="weatherIcon" class="fas fa-sun"></i>
+                    </div>
+                    <div class="weather-details">
+                        <div class="temp" id="currentTemp">--°C</div>
+                        <div class="condition" id="currentCondition">--</div>
+                        <div class="humidity-wind">
+                            <span id="currentHumidity">Humidity: --%</span>
+                            <span id="currentWindSpeed">Wind: -- m/s</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-meta">
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="coordinates">Latitude: --, Longitude: --</span></p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3><i class="fas fa-info-circle"></i> Quick Info</h3>
+                <div id="quickInfo">
+                    <p>Loading location...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Center: Map -->
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-controls">
+                <button id="zoomIn" class="control-btn" title="Zoom In"><i class="fas fa-plus"></i></button>
+                <button id="zoomOut" class="control-btn" title="Zoom Out"><i class="fas fa-minus"></i></button>
+                <button id="centerMap" class="control-btn" title="Center on My Location"><i class="fas fa-location-arrow"></i></button>
+            </div>
+        </div>
+        
+        <!-- Right Panel: Added Cities -->
+        <div class="right-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-globe"></i> My Cities</h2>
+                <button id="clearAllBtn" class="clear-btn" title="Clear all cities"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            
+            <div class="add-city-section">
+                <div class="add-city-form">
+                    <input 
+                        type="text" 
+                        id="cityInput" 
+                        placeholder="Add a city (e.g., Tokyo, Paris, New York)" 
+                        autocomplete="off"
+                    >
+                    <button id="addCityBtn" class="add-btn"><i class="fas fa-plus"></i> Add</button>
+                </div>
+                <div id="suggestions" class="suggestions-list"></div>
+            </div>
+            
+            <div id="citiesList" class="cities-list">
+                <div class="no-cities">
+                    <i class="fas fa-inbox"></i>
+                    <p>No cities added yet</p>
+                    <small>Add cities to compare their time and weather</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Initializing...</p>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Day.js for lightweight timezone handling -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/utc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/timezone.js"></script>
+    
+    <!-- Custom App JS -->
+    <script>
+        console.log('Scripts loaded, checking libraries...');
+        console.log('dayjs available:', typeof dayjs !== 'undefined');
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
