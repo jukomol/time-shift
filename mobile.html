@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Global Time Checker - Mobile</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Mobile CSS -->
+    <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <header class="mobile-header">
+            <div class="header-content">
+                <h1><i class="fas fa-globe"></i> Time Checker</h1>
+                <button id="switchToDesktop" class="switch-version-btn" title="Switch to desktop version">
+                    <i class="fas fa-desktop"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="mobile-content">
+            <!-- Current Location Card -->
+            <section class="current-location-section">
+                <div class="current-location-card">
+                    <div class="location-header">
+                        <h2 id="currentCity">Loading...</h2>
+                        <p id="currentCountry" class="country-text">--</p>
+                    </div>
+
+                    <div class="time-display">
+                        <div class="time-large" id="currentTime">--:--:--</div>
+                        <div class="time-meta">
+                            <span id="currentTimezone">UTC</span>
+                        </div>
+                        <div class="time-date" id="currentDate">Mon, Jan 1, 2024</div>
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon-container">
+                            <i id="weatherIcon" class="fas fa-sun"></i>
+                        </div>
+                        <div class="weather-details">
+                            <div class="temp" id="currentTemp">--°C</div>
+                            <div class="condition" id="currentCondition">--</div>
+                            <div class="humidity-wind">
+                                <span id="currentHumidity">Humidity: --%</span>
+                                <span id="currentWindSpeed">Wind: -- m/s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="location-meta">
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="coordinates">Latitude: --, Longitude: --</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add City Section -->
+            <section class="add-city-section-mobile">
+                <h3><i class="fas fa-plus-circle"></i> Add a City</h3>
+                <div class="add-city-form">
+                    <input
+                        type="text"
+                        id="cityInput"
+                        placeholder="City, ZIP code, or location"
+                        autocomplete="off"
+                    >
+                    <button id="addCityBtn" class="add-btn"><i class="fas fa-plus"></i></button>
+                </div>
+                <div id="suggestions" class="suggestions-list"></div>
+            </section>
+
+            <!-- Cities List Section -->
+            <section class="cities-section">
+                <div class="cities-header">
+                    <h3><i class="fas fa-city"></i> My Cities</h3>
+                    <button id="clearAllBtn" class="clear-btn-mobile" title="Clear all cities">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+
+                <div id="citiesList" class="cities-list-mobile">
+                    <div class="no-cities">
+                        <i class="fas fa-inbox"></i>
+                        <p>No cities added yet</p>
+                        <small>Add cities to compare their time and weather</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Initializing...</p>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Day.js for lightweight timezone handling -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/utc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/timezone.js"></script>
+
+    <!-- App JS (shared with desktop version) -->
+    <script>
+        console.log('🔧 Initializing Mobile Time Checker...');
+        console.log('Window object available:', typeof window !== 'undefined');
+        console.log('dayjs available:', typeof dayjs !== 'undefined');
+
+        // Initialize Day.js plugins
+        try {
+            if (typeof dayjs !== 'undefined') {
+                console.log('📦 dayjs found, extending with plugins...');
+
+                if (window.dayjs_plugin_utc) {
+                    dayjs.extend(window.dayjs_plugin_utc);
+                    console.log('✓ UTC plugin loaded');
+                } else {
+                    if (dayjs.utc) {
+                        console.log('✓ UTC available natively');
+                    }
+                }
+
+                if (window.dayjs_plugin_timezone) {
+                    dayjs.extend(window.dayjs_plugin_timezone);
+                    console.log('✓ Timezone plugin loaded');
+                } else {
+                    console.warn('⚠️ Timezone plugin not found');
+                }
+            } else {
+                console.error('❌ dayjs library not loaded!');
+            }
+        } catch (error) {
+            console.error('Error initializing Day.js plugins:', error);
+        }
+    </script>
+    <script src="app.js"></script>
+    <script src="mobile.js"></script>
+</body>
+</html>

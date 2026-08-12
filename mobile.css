@@ -1,5 +1,5 @@
 /* ============================================
-   GLOBAL STYLES & VARIABLES
+   MOBILE STYLES & VARIABLES
    ============================================ */
 
 :root {
@@ -8,7 +8,7 @@
     --accent-color: #f97316;
     --danger-color: #ef4444;
     --success-color: #10b981;
-    
+
     --bg-dark: #0f172a;
     --bg-light: #1e293b;
     --bg-lighter: #334155;
@@ -16,11 +16,11 @@
     --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
     --border-color: #475569;
-    
+
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
-    
+
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s ease-in-out;
 }
@@ -29,12 +29,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 body {
@@ -45,90 +46,81 @@ body {
 }
 
 /* ============================================
-   SWITCH VERSION BUTTON
+   MOBILE LAYOUT
    ============================================ */
 
-.switch-version-container {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 900;
-    display: none;
+.mobile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.switch-version-desktop-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-fast);
+/* Header */
+.mobile-header {
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-lighter) 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header-content h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    flex: 1;
 }
 
-.switch-version-desktop-btn:hover {
-    background-color: #4338ca;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+.switch-version-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.switch-version-desktop-btn:active {
-    transform: translateY(0);
+.switch-version-btn:active {
+    background-color: var(--bg-lighter);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-/* Show switch button on smaller screens */
-@media (max-width: 1024px) {
-    .switch-version-container {
-        display: block;
-    }
-}
-
-/* ============================================
-   LAYOUT
-   ============================================ */
-
-.container {
-    display: grid;
-    grid-template-columns: 350px 1fr 350px;
-    gap: 1rem;
-    width: 100%;
-    height: 100vh;
+/* Main Content */
+.mobile-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 1rem;
-    background-color: var(--bg-dark);
-}
-
-/* ============================================
-   LEFT PANEL
-   ============================================ */
-
-.left-panel {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    overflow-y: auto;
-    padding-right: 0.5rem;
 }
 
-.left-panel::-webkit-scrollbar {
-    width: 6px;
-}
+/* ============================================
+   CURRENT LOCATION CARD - MOBILE
+   ============================================ */
 
-.left-panel::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.left-panel::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 3px;
-}
-
-.left-panel::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
+.current-location-section {
+    flex-shrink: 0;
 }
 
 .current-location-card {
@@ -137,26 +129,26 @@ body {
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: var(--shadow-lg);
-    animation: slideInLeft 0.5s ease-out;
+    animation: slideInDown 0.5s ease-out;
 }
 
 .location-header h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
 }
 
 .country-text {
     color: var(--text-muted);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .time-display {
     margin: 1.5rem 0;
-    padding: 1.5rem;
+    padding: 1.25rem;
     background-color: rgba(79, 70, 229, 0.1);
     border-radius: 8px;
     border-left: 4px solid var(--primary-color);
@@ -165,7 +157,7 @@ body {
 
 .time-large {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--primary-color);
     letter-spacing: 0.05em;
@@ -180,7 +172,7 @@ body {
 
 .time-date {
     margin-top: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     letter-spacing: 0.04em;
 }
@@ -196,13 +188,14 @@ body {
 }
 
 .weather-icon-container {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--accent-color);
-    width: 80px;
+    width: 60px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .weather-details {
@@ -210,7 +203,7 @@ body {
 }
 
 .temp {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-primary);
 }
@@ -226,15 +219,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
 }
 
 .location-meta {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
+    word-break: break-word;
 }
 
 .location-meta i {
@@ -242,16 +236,16 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Info Section */
-.info-section {
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
+/* ============================================
+   ADD CITY SECTION - MOBILE
+   ============================================ */
+
+.add-city-section-mobile {
+    flex-shrink: 0;
 }
 
-.info-section h3 {
-    font-size: 0.875rem;
+.add-city-section-mobile h3 {
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text-secondary);
@@ -259,145 +253,6 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-}
-
-#quickInfo p {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-/* ============================================
-   MAP CONTAINER
-   ============================================ */
-
-.map-container {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-#map {
-    width: 100%;
-    height: 100%;
-}
-
-.map-controls {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    z-index: 999;
-    pointer-events: auto;
-}
-
-.control-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-    z-index: 999;
-    pointer-events: auto;
-    flex-shrink: 0;
-}
-
-.control-btn:hover {
-    background-color: #4338ca;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-.control-btn:active {
-    transform: translateY(0);
-}
-
-.leaflet-container {
-    background: rgba(148, 163, 184, 0.08);
-}
-
-.leaflet-interactive {
-    cursor: pointer;
-}
-
-.city-tooltip {
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    border-radius: 6px;
-    color: #e2e8f0;
-    font-size: 0.75rem;
-    padding: 0.3rem 0.5rem;
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
-}
-
-/* ============================================
-   RIGHT PANEL
-   ============================================ */
-
-.right-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: hidden;
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-lg);
-}
-
-.panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.panel-header h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.clear-btn {
-    background-color: transparent;
-    color: var(--text-muted);
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: var(--transition-fast);
-}
-
-.clear-btn:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--danger-color);
-}
-
-/* Add City Section */
-.add-city-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 50;
 }
 
 .add-city-form {
@@ -409,12 +264,12 @@ body {
 
 #cityInput {
     flex: 1;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 0.75rem 1rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     transition: var(--transition-fast);
 }
 
@@ -433,7 +288,7 @@ body {
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition-fast);
@@ -441,15 +296,15 @@ body {
     z-index: 50;
     pointer-events: auto;
     flex-shrink: 0;
-}
-
-.add-btn:hover {
-    background-color: #4338ca;
-    transform: translateY(-2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
 }
 
 .add-btn:active {
-    transform: translateY(0);
+    background-color: #4338ca;
+    transform: scale(0.95);
 }
 
 /* Suggestions List */
@@ -466,7 +321,6 @@ body {
     overflow-y: auto;
     z-index: 1000;
     box-shadow: var(--shadow-lg);
-    min-width: 300px;
 }
 
 .suggestions-list.active {
@@ -481,7 +335,7 @@ body {
     font-size: 0.875rem;
 }
 
-.suggestion-item:hover {
+.suggestion-item:active {
     background-color: var(--bg-lighter);
     padding-left: 1.25rem;
 }
@@ -490,26 +344,58 @@ body {
     border-bottom: none;
 }
 
-/* Cities List */
-.cities-list {
+/* ============================================
+   CITIES LIST - MOBILE
+   ============================================ */
+
+.cities-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cities-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.cities-header h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clear-btn-mobile {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.clear-btn-mobile:active {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.cities-list-mobile {
     flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-}
-
-.cities-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.cities-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.cities-list::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 3px;
+    padding-bottom: 1rem;
 }
 
 .no-cities {
@@ -523,7 +409,7 @@ body {
 }
 
 .no-cities i {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     opacity: 0.5;
 }
@@ -531,6 +417,7 @@ body {
 .no-cities p {
     font-weight: 500;
     margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }
 
 .no-cities small {
@@ -538,19 +425,20 @@ body {
     color: var(--text-muted);
 }
 
-/* City Card */
+/* City Card - Mobile */
 .city-card {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1rem;
     transition: var(--transition-smooth);
-    animation: slideInRight 0.4s ease-out;
+    animation: slideInUp 0.4s ease-out;
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
-.city-card:hover {
+.city-card:active {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
     transform: translateY(-2px);
@@ -580,7 +468,7 @@ body {
 }
 
 .city-tz {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -597,13 +485,13 @@ body {
     transition: var(--transition-fast);
 }
 
-.remove-btn:hover {
+.remove-btn:active {
     background-color: rgba(239, 68, 68, 0.1);
     color: var(--danger-color);
 }
 
 .city-time {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--primary-color);
     margin: 0.75rem 0 0.25rem;
@@ -611,7 +499,7 @@ body {
 }
 
 .city-date {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     margin-bottom: 0.75rem;
 }
@@ -622,7 +510,7 @@ body {
     color: var(--primary-color);
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     margin: 0.75rem 0;
 }
@@ -647,20 +535,22 @@ body {
 }
 
 .city-weather-icon {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--accent-color);
-    min-width: 24px;
+    min-width: 30px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .city-weather-details {
     flex: 1;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .city-weather-temp {
     font-weight: 600;
     color: var(--text-primary);
+    font-size: 0.95rem;
 }
 
 .city-weather-condition {
@@ -722,8 +612,9 @@ body {
 
 .notification {
     position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
+    bottom: 1.5rem;
+    left: 1rem;
+    right: 1rem;
     background-color: var(--bg-light);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
@@ -731,9 +622,9 @@ body {
     padding: 1rem 1.5rem;
     box-shadow: var(--shadow-lg);
     z-index: 999;
-    max-width: 400px;
+    max-width: 100%;
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(20px);
     pointer-events: none;
     transition: var(--transition-smooth);
 }
@@ -766,25 +657,25 @@ body {
    ANIMATIONS
    ============================================ */
 
-@keyframes slideInLeft {
+@keyframes slideInDown {
     from {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateY(-30px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
-@keyframes slideInRight {
+@keyframes slideInUp {
     from {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -798,66 +689,135 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   SCROLLBAR STYLING
    ============================================ */
 
-/* Tablet (768px and below) */
-@media (max-width: 1024px) {
-    .container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .left-panel {
-        display: none;
-    }
-    
-    .right-panel {
-        display: none;
-    }
-    
-    .map-container {
-        width: 100%;
-        height: 100vh;
-    }
+.mobile-content::-webkit-scrollbar {
+    width: 4px;
 }
 
-/* Mobile (640px and below) */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 0.5rem;
+.mobile-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mobile-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.cities-list-mobile::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cities-list-mobile::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cities-list-mobile::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.suggestions-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.suggestions-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+/* ============================================
+   MEDIA QUERIES FOR DIFFERENT SCREEN SIZES
+   ============================================ */
+
+/* Small phones (320px - 480px) */
+@media (max-width: 480px) {
+    .mobile-header {
+        padding: 0.75rem;
     }
-    
-    .left-panel,
-    .right-panel {
-        display: none;
+
+    .header-content h1 {
+        font-size: 1.25rem;
     }
-    
-    .map-container {
-        width: 100%;
-        height: 100vh;
+
+    .mobile-content {
+        padding: 0.75rem;
+        gap: 1.25rem;
     }
-    
+
     .time-large {
         font-size: 2rem;
     }
-    
-    .current-location-card {
-        padding: 1rem;
+
+    .temp {
+        font-size: 1.25rem;
+    }
+
+    .city-time {
+        font-size: 1.5rem;
     }
 }
 
-/* Large screens (1440px+) */
-@media (min-width: 1440px) {
-    .container {
-        gap: 1.5rem;
-        padding: 1.5rem;
+/* Medium phones (481px - 768px) */
+@media (min-width: 481px) {
+    .mobile-container {
+        max-width: 100%;
     }
-    
-    .left-panel,
-    .right-panel {
-        width: 380px;
+}
+
+/* Tablets and larger mobile (769px+) - Switch to desktop */
+@media (min-width: 769px) {
+    body {
+        background: #f5f5f5;
+    }
+
+    .mobile-container::before {
+        content: 'Please use the desktop version for larger screens. Tap here to switch.';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+        color: var(--text-primary);
+        text-align: center;
+        padding: 2rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+}
+
+/* iPad and larger tablets */
+@media (min-width: 1024px) {
+    .mobile-container::before {
+        display: flex;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) {
+    .mobile-header {
+        padding: 0.5rem;
+    }
+
+    .header-content h1 {
+        font-size: 1.2rem;
+    }
+
+    .time-large {
+        font-size: 1.75rem;
+    }
+
+    .current-location-card {
+        padding: 1rem;
     }
 }

@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Switch Version Button -->
+    <div id="switchVersionContainer" class="switch-version-container">
+        <button id="switchToMobile" class="switch-version-desktop-btn" title="Switch to mobile version">
+            <i class="fas fa-mobile-alt"></i> Mobile
+        </button>
+    </div>
+
     <div class="container">
         <!-- Left Panel: Current Location & Time -->
         <div class="left-panel">
@@ -125,6 +132,44 @@
     <script>
         console.log('Scripts loaded, checking libraries...');
         console.log('dayjs available:', typeof dayjs !== 'undefined');
+
+        // Mobile detection and redirect
+        function checkMobileAndRedirect() {
+            const width = window.innerWidth;
+            if (width < 768) {
+                // Check if user has dismissed this message before
+                const dismissed = sessionStorage.getItem('mobileRedirectDismissed');
+                if (!dismissed) {
+                    setTimeout(() => {
+                        const shouldRedirect = confirm(
+                            '📱 Mobile-optimized version available!\n\nWould you like to switch to the mobile-friendly version?'
+                        );
+                        if (shouldRedirect) {
+                            window.location.href = 'mobile.html';
+                        } else {
+                            sessionStorage.setItem('mobileRedirectDismissed', 'true');
+                        }
+                    }, 2000);
+                }
+            }
+        }
+
+        // Check on load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkMobileAndRedirect);
+        } else {
+            checkMobileAndRedirect();
+        }
+
+        // Add switch to mobile button functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const switchBtn = document.getElementById('switchToMobile');
+            if (switchBtn) {
+                switchBtn.addEventListener('click', () => {
+                    window.location.href = 'mobile.html';
+                });
+            }
+        });
     </script>
     <script src="app.js"></script>
 </body>
